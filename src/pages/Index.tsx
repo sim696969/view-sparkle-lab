@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { CategoryFilter } from "@/components/CategoryFilter";
 import { MenuCard } from "@/components/MenuCard";
@@ -34,6 +35,7 @@ interface CartItem {
 }
 
 const Index = () => {
+  const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState('all');
   const [cartOpen, setCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -75,10 +77,8 @@ const Index = () => {
   };
 
   const handleCheckout = () => {
-    toast({
-      title: "Coming soon!",
-      description: "Checkout functionality will be available soon",
-    });
+    setCartOpen(false);
+    navigate("/checkout", { state: { items: cartItems } });
   };
 
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);

@@ -17,16 +17,17 @@ const categories = [
 export const CategoryFilter = ({ activeCategory, onCategoryChange }: CategoryFilterProps) => {
   return (
     <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-      {categories.map(({ id, label, icon: Icon }) => (
+      {categories.map(({ id, label, icon: Icon }, index) => (
         <Button
           key={id}
           variant={activeCategory === id ? "default" : "outline"}
           onClick={() => onCategoryChange(id)}
-          className={`flex items-center gap-2 whitespace-nowrap transition-smooth ${
+          className={`flex items-center gap-2 whitespace-nowrap transition-smooth animate-fade-in ${
             activeCategory === id 
               ? 'bg-gradient-primary text-primary-foreground shadow-warm scale-105' 
-              : 'hover:bg-accent hover:border-accent'
+              : 'hover:bg-accent hover:border-accent hover:scale-105'
           }`}
+          style={{ animationDelay: `${index * 0.05}s` }}
         >
           <Icon className="w-4 h-4" />
           {label}

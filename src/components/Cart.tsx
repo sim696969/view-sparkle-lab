@@ -28,36 +28,45 @@ export const Cart = ({ isOpen, onClose, items, onUpdateQuantity, onCheckout }: C
   return (
     <>
       <div 
-        className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 animate-fade-in"
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 animate-fade-in"
         onClick={onClose}
       />
       
       <div className="fixed right-0 top-0 h-full w-full max-w-md bg-card shadow-2xl z-50 animate-slide-in-right flex flex-col">
-        <div className="p-6 border-b border-border">
+        <div className="p-6 border-b border-border animate-fade-in">
           <div className="flex items-center justify-between mb-2">
             <h2 className="text-2xl font-bold font-playfair text-foreground">Your Cart</h2>
-            <Button variant="ghost" size="icon" onClick={onClose}>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={onClose}
+              className="hover:rotate-90 transition-smooth hover:bg-destructive/10 hover:text-destructive"
+            >
               <X className="w-5 h-5" />
             </Button>
           </div>
-          <p className="text-sm text-muted-foreground">{itemCount} items</p>
+          <p className="text-sm text-muted-foreground animate-fade-in" style={{ animationDelay: '0.1s' }}>{itemCount} items</p>
         </div>
 
         <ScrollArea className="flex-1 p-6">
           {items.length === 0 ? (
-            <div className="flex flex-col items-center justify-center h-full text-center py-12">
-              <ShoppingBag className="w-16 h-16 text-muted mb-4 opacity-50" />
+            <div className="flex flex-col items-center justify-center h-full text-center py-12 animate-scale-in">
+              <ShoppingBag className="w-16 h-16 text-muted mb-4 opacity-50 animate-pulse" />
               <p className="text-lg font-medium text-muted-foreground">Your cart is empty</p>
               <p className="text-sm text-muted-foreground mt-2">Add some delicious items to get started!</p>
             </div>
           ) : (
             <div className="space-y-4">
-              {items.map((item) => (
-                <div key={item.id} className="flex gap-4 p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-smooth">
+              {items.map((item, index) => (
+                <div 
+                  key={item.id} 
+                  className="flex gap-4 p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-smooth animate-fade-in hover:shadow-card"
+                  style={{ animationDelay: `${index * 0.05}s` }}
+                >
                   <img 
                     src={item.image} 
                     alt={item.name}
-                    className="w-20 h-20 object-cover rounded-lg shadow-card"
+                    className="w-20 h-20 object-cover rounded-lg shadow-card transition-smooth hover:scale-110"
                   />
                   
                   <div className="flex-1 min-w-0">
@@ -68,7 +77,7 @@ export const Cart = ({ isOpen, onClose, items, onUpdateQuantity, onCheckout }: C
                       <Button 
                         size="icon"
                         variant="outline"
-                        className="h-7 w-7"
+                        className="h-7 w-7 hover:scale-110 transition-smooth hover:bg-destructive/10 hover:border-destructive hover:text-destructive"
                         onClick={() => onUpdateQuantity(item.id, -1)}
                       >
                         <Minus className="w-3 h-3" />
@@ -79,7 +88,7 @@ export const Cart = ({ isOpen, onClose, items, onUpdateQuantity, onCheckout }: C
                       <Button 
                         size="icon"
                         variant="outline"
-                        className="h-7 w-7"
+                        className="h-7 w-7 hover:scale-110 transition-smooth hover:bg-primary/10 hover:border-primary hover:text-primary"
                         onClick={() => onUpdateQuantity(item.id, 1)}
                       >
                         <Plus className="w-3 h-3" />
@@ -97,7 +106,7 @@ export const Cart = ({ isOpen, onClose, items, onUpdateQuantity, onCheckout }: C
         </ScrollArea>
 
         {items.length > 0 && (
-          <div className="p-6 border-t border-border bg-muted/20">
+          <div className="p-6 border-t border-border bg-muted/20 animate-fade-in">
             <div className="space-y-2 mb-4">
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">Subtotal</span>
